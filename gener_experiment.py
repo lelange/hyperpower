@@ -36,7 +36,7 @@ def prepare_exp_dir(args):
     for path in items_to_create:
         if not os.path.exists(args.experiment + path):
             os.mkdir(path)
-            print 'Creating %s' % path
+            print ('Creating %s' % path)
 
     # make sure that Spearmint is available
     error_msgs = ['Spearmint main script was not found at %s. Set the SPEARMINT_ROOT variable.',
@@ -54,7 +54,7 @@ def prepare_exp_dir(args):
             exit()
 
     # clean-up previous run
-    print 'Cleaning-up previous run ...'
+    print ('Cleaning-up previous run ...')
     if os.path.exists(args.experiment + 'spearmint/config.json'):
         subprocess.call('bash ' + SPEARMINT_ROOT + '/spearmint/cleanup.sh' + ' ' +
                         args.experiment + '/spearmint', shell=True)
@@ -88,14 +88,14 @@ def hyperpower_params(args):
             hyperpowerparams['constraint'] = args.constraint
             hyperpowerparams['exec_mode'] = 'constrained'
         else:
-            print "Error: error should be used as constraint if optimizing for HW.. Exiting!!"
+            print ("Error: error should be used as constraint if optimizing for HW.. Exiting!!")
             exit()
 
     if hyperpowerparams['exec_mode'] == 'constrained':
         if args.constraint_val is not None:
             hyperpowerparams['constraint_val'] = args.constraint_val
         else:
-            print "Error: Constraint metric defined, but not --constraint_val value set.. Exiting!!"
+            print ("Error: Constraint metric defined, but not --constraint_val value set.. Exiting!!")
             exit()
 
     # make sure that 'nvidia-smi' is available if selected metric is energy or power
@@ -104,10 +104,10 @@ def hyperpower_params(args):
             devnull = open(os.devnull, 'w')
             subprocess.call('nvidia-smi', shell=False, stdout=devnull, stderr=devnull)
         except subprocess.CalledProcessError:
-            print "Errors with nvidia-smi?? Is it properly installed"
+            print ("Errors with nvidia-smi?? Is it properly installed")
             exit()
         except OSError:
-            print "Error: nvidia-smi (executable) not found!! Is it installed?? Exiting!!"
+            print ("Error: nvidia-smi (executable) not found!! Is it installed?? Exiting!!")
             exit()
 
     # store hyperpower parameters
@@ -143,14 +143,14 @@ def spearmint_generate_cfg(prefix, hyperpowerparams, net):
         config_buffer += '{"language": "PYTHON", "main-file": "mainrun.py", ' \
                        '"experiment-name": "hyperpower-' + prefix + '", "variables" : {'
     else:
-        print "Unknown execution mode selected.. Exiting!"
+        print ("Unknown execution mode selected.. Exiting!")
         exit()
 
     # parse each token and add it to the Spearmint config file object
     pattern = re.compile('.*HYPERPARAM.*')
     matches = re.findall(pattern, net)
     if len(matches) == 0:
-        print "Error: No hyper-parameters!! Make sure you define them in network_def.txt. Exiting!!"
+        print ("Error: No hyper-parameters!! Make sure you define them in network_def.txt. Exiting!!")
         exit()
 
     for match in matches:
@@ -160,7 +160,7 @@ def spearmint_generate_cfg(prefix, hyperpowerparams, net):
 
         # make sure you have not seen this name before !!
         if token_name in params.keys():
-            print "Same token name used in multiple hyper-parameter definitions.. Exiting!!"
+            print ("Same token name used in multiple hyper-parameter definitions.. Exiting!!")
             exit()
 
         tokens[len(tokens) + 1] = {'name': token_name, 'description': param}  # store the token
