@@ -33,7 +33,7 @@ def prepare_exp_dir(args):
     """
 
     # make sure that the experiment subfolders are properly set
-    items_to_create = ['keras_model', 'mongodb', 'spearmint', 'tmp']
+    items_to_create = ['/keras_model', '/mongodb', '/spearmint', '/tmp']
     for path in items_to_create:
         if not os.path.exists(args.experiment + path):
             os.mkdir(path)
