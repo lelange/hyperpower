@@ -9,7 +9,7 @@ from datetime import datetime
 import re
 import json
 
-SPEARMINT_ROOT = '/home/enyac-awa-r5/research/HyperParameterOptimization/Spearmint-master-repo'  # without the trailing slash
+SPEARMINT_ROOT = '/local/hdd/lange_mongodb/Spearmint'  # without the trailing slash
 MONGODB_BIN = '/usr/bin/mongod'
 
 def parse_arguments():
