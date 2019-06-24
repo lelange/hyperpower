@@ -9,7 +9,8 @@ from datetime import datetime
 import re
 import json
 
-SPEARMINT_ROOT = '/local/hdd/lange_mongodb/Spearmint'  # without the trailing slash
+
+SPEARMINT_ROOT = '/local/hdd/lange/Spearmint'  # without the trailing slash
 MONGODB_BIN = '/usr/bin/mongod'
 
 def parse_arguments():
