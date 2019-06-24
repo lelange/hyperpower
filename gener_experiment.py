@@ -51,7 +51,7 @@ def prepare_exp_dir(args):
     for i, path in enumerate(items_required):
         msg = error_msgs[i]
         if not os.path.exists(path):
-            print msg % path
+            print (msg % path)
             exit()
 
     # clean-up previous run
